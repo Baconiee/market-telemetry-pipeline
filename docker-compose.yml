@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  market_db:
+    image: postgres:16
+    container_name: compose_market_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5434:5432"  
+    volumes:
+      - market_postgres_data:/var/lib/postgresql/data
+    networks:
+      - market_network
+
+  airflow:
+    image: apache/airflow:2.7.1-python3.11
+    container_name: compose_market_airflow
+    env_file:
+      - .env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./requirements.txt:/opt/airflow/requirements.txt
+    ports:
+      - "8081:8080"  
+    command: standalone
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    networks:
+      - market_network
+
+networks:
+  market_network:
+    driver: bridge
+
+volumes:
+  market_postgres_data:

@@ -1,0 +1,6 @@
+.env
+dbt_venv
+market_transformations/logs/
+/logs
+market_transformations/target/
+market_transformations/dbt_packages/
