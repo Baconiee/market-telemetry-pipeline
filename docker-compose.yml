@@ -18,6 +18,7 @@ services:
   airflow:
     image: apache/airflow:2.7.1-python3.11
     container_name: compose_market_airflow
+    user: "${AIRFLOW_UID:-5000}:0"
     env_file:
       - .env
     volumes:
@@ -25,7 +26,7 @@ services:
       - ./requirements.txt:/opt/airflow/requirements.txt
     ports:
       - "8081:8080"  
-    command: standalone
+    command: bash -c "pip install --no-cache-dir -r /opt/airflow/requirements.txt && airflow standalone"
     environment:
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
     networks:

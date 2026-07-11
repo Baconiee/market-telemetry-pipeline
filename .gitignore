@@ -1,6 +1,12 @@
 .env
-dbt_venv
-market_transformations/logs/
-/logs
+market_transformations/profiles.yml
+market_transformations/.user.yml
+logs/
+
+dbt_venv/
+__pycache__/
+*.pyc
+
 market_transformations/target/
+market_transformations/logs/
 market_transformations/dbt_packages/

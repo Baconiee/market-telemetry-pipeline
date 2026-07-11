@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: binance_raw
+    schema: public
+    tables:
+      - name: src_market_data
