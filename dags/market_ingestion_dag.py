@@ -5,6 +5,7 @@ import requests
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.operators.bash import BashOperator
 
 
 default_args = {
@@ -84,4 +85,14 @@ with DAG(
         python_callable=load_raw_data,
     )
 
-    extract_task >> load_task
+    dbt_run_task = BashOperator(
+        task_id='dbt_run',
+        bash_command='cd /opt/airflow/market_transformations && dbt run'
+    )
+
+    dbt_test_task = BashOperator(
+        task_id='dbt_test',
+        bash_command='cd /opt/airflow/market_transformations && dbt test'
+    )
+    
+    extract_task >> load_task >> dbt_run_task >> dbt_test_task

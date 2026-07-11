@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: fct_latest_market_metrics
+    description: "The core analytics table capturing the absolute latest real-time metrics for each tracking asset."
+    columns:
+      - name: symbol
+        description: "The unique cryptocurrency ticker symbol (e.g., BTCUSDT)."
+        tests:
+          - not_null
+          - unique
+      - name: current_price_usd
+        description: "The most recent spot price converted to high-precision numeric decimal format."
+        tests:
+          - not_null
