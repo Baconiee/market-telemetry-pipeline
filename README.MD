@@ -38,36 +38,36 @@ An automated, containerized **ELT (Extract-Load-Transform)** data engineering pi
 🚀 Getting Started
 Prerequisites
 
-    Docker & Docker Compose installed on your system.
+Docker & Docker Compose installed on your system.
 
-    Python 3.11+ (for local development/testing).
+Python 3.11+ (for local development/testing).
 
 ```
 Installation & Initialization
 
-    Clone the repository:
-    ```bash
-    git clone [https://github.com/yourusername/crypto-market-telemetry.git](https://github.com/yourusername/crypto-market-telemetry.git)
-    cd crypto-market-telemetry
-    ```
+Clone the repository:
+```bash
+git clone [https://github.com/yourusername/crypto-market-telemetry.git](https://github.com/yourusername/crypto-market-telemetry.git)
+cd crypto-market-telemetry
+```
 
-    **Configure Environment Variables:**
-    Copy the provided environment template file to create your local active configuration file:
-    ```bash
-    cp .env.example .env
-    ```
+**Configure Environment Variables:**
+Copy the provided environment template file to create your local active configuration file:
+```bash
+cp .env.example .env
+```
 
-    Boot the Container Environment:
-    Run the stack in detached mode. This single command builds the network, mounts local volumes, boots the services, and automatically injects database configurations directly into Airflow's environment memory:
-    Bash
+Boot the Container Environment:
+Run the stack in detached mode. This single command builds the network, mounts local volumes, boots the services, and automatically injects database configurations directly into Airflow's environment memory:
 
-    docker-compose up -d
+```bash
+docker-compose up -d
+```
 
-    Retrieve Airflow Admin Password:
-    Grab your automatically generated local admin web server password by running:
-    Bash
-
-    docker exec -it compose_market_airflow cat /opt/airflow/standalone_admin_password.txt
-
-    Access the Orchestrator Interface:
-    Open your browser and navigate to http://localhost:8081. Log in using the username admin and the password retrieved from the step above. Turn on the market_telemetry_ingestion DAG—the system is fully configured and ready to run.
+Retrieve Airflow Admin Password:
+Grab your automatically generated local admin web server password by running:
+```bash
+docker exec -it compose_market_airflow cat /opt/airflow/standalone_admin_password.txt
+```
+Access the Orchestrator Interface:
+Open your browser and navigate to http://localhost:8081. Log in using the username admin and the password retrieved from the step above. Turn on the market_telemetry_ingestion DAG—the system is fully configured and ready to run.
