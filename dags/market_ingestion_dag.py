@@ -5,8 +5,36 @@ import requests
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.providers.slack.hooks.slack_webhook import SlackWebhookHook
 from airflow.operators.bash import BashOperator
 
+
+def send_discord_alert(context):
+    task_id = context.get('task_instance').task_id
+    dag_id = context.get('task_instance').dag_id
+    execution_date = context.get('execution_date')
+    log_url = context.get('task_instance').log_url
+    error_msg = str(context.get('exception'))
+
+    DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1526227460037935234/xGF_GQrQp3gohZbVnTR-SFfGUVXBCOldbL88zXTA7zUn3Aw5lgUZ0gGe3itUMGw-uiGZ"
+
+    message = (
+        f"🚨 **Airflow Pipeline Task Failed!** 🚨\n\n"
+        f"**DAG:** `{dag_id}`\n"
+        f"**Task:** `{task_id}`\n"
+        f"**Execution Time:** `{execution_date}`\n"
+        f"**Error Details:** `{error_msg[:200]}`\n"
+        f"🔗 [View Airflow Logs]({log_url})"
+    )
+
+    payload = {"content": message}
+    
+    try:
+        response = requests.post(DISCORD_WEBHOOK_URL, json=payload, timeout=10)
+        response.raise_for_status()
+        print("Discord alert sent successfully!")
+    except Exception as e:
+        print(f"Failed to send Discord alert: {e}")
 
 default_args = {
     'owner': os.getenv('AIRFLOW_OWNER', 'berkay'),
@@ -16,6 +44,7 @@ default_args = {
     'email_on_retry': False,
     'retries': 1,
     'retry_delay': timedelta(minutes=1),
+    'on_failure_callback': send_discord_alert,
 }
 
 def extract_market_data():

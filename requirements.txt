@@ -1,3 +1,4 @@
 requests==2.31.0
 apache-airflow-providers-postgres==3.0.0
 dbt-postgres==1.7.0
+apache-airflow-providers-slack==8.4.0
