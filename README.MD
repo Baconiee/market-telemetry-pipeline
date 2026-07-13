@@ -42,6 +42,7 @@ Prerequisites
 
     Python 3.11+ (for local development/testing).
 
+```
 Installation & Initialization
 
     Clone the repository:
