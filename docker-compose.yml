@@ -30,6 +30,8 @@ services:
     command: bash -c "pip install --no-cache-dir -r /opt/airflow/requirements.txt && airflow standalone"
     environment:
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW_CONN_POSTGRES_DEFAULT=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@market_db:5432/${POSTGRES_DB}
+      - AIRFLOW__CORE__TEST_CONNECTION=Enabled
     networks:
       - market_network
 
