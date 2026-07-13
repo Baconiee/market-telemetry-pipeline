@@ -47,8 +47,8 @@ Installation & Initialization
 
 Clone the repository:
 ```bash
-git clone [https://github.com/yourusername/crypto-market-telemetry.git](https://github.com/yourusername/crypto-market-telemetry.git)
-cd crypto-market-telemetry
+git clone https://github.com/Baconiee/market-telemetry-pipeline.git
+cd market-telemetry-pipeline
 ```
 
 **Configure Environment Variables:**
