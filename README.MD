@@ -2,6 +2,8 @@
 
 An automated, containerized **ELT (Extract-Load-Transform)** data engineering pipeline that ingests real-time cryptocurrency metrics from the Binance API, manages database storage, executes analytical transformations, and integrates automated error monitoring.
 
+> **Note:** This repository is a dedicated personal learning project built to master local batch processing infrastructure, container synchronization, and modern analytics engineering frameworks.
+
 ---
 
 ### Pipeline Workflow
@@ -34,40 +36,4 @@ An automated, containerized **ELT (Extract-Load-Transform)** data engineering pi
 ├── docker-compose.yml                 # Multi-container engine definition file
 ├── requirements.txt                   # Pipeline-wide environment dependencies
 └── README.md                          # Project documentation
-
-🚀 Getting Started
-Prerequisites
-
-Docker & Docker Compose installed on your system.
-
-Python 3.11+ (for local development/testing).
-
 ```
-Installation & Initialization
-
-Clone the repository:
-```bash
-git clone https://github.com/Baconiee/market-telemetry-pipeline.git
-cd market-telemetry-pipeline
-```
-
-**Configure Environment Variables:**
-Copy the provided environment template file to create your local active configuration file:
-```bash
-cp .env.example .env
-```
-
-Boot the Container Environment:
-Run the stack in detached mode. This single command builds the network, mounts local volumes, boots the services, and automatically injects database configurations directly into Airflow's environment memory:
-
-```bash
-docker-compose up -d
-```
-
-Retrieve Airflow Admin Password:
-Grab your automatically generated local admin web server password by running:
-```bash
-docker exec -it compose_market_airflow cat /opt/airflow/standalone_admin_password.txt
-```
-Access the Orchestrator Interface:
-Open your browser and navigate to http://localhost:8081. Log in using the username admin and the password retrieved from the step above. Turn on the market_telemetry_ingestion DAG—the system is fully configured and ready to run.
